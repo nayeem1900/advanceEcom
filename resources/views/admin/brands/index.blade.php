@@ -46,8 +46,10 @@ active
 
                     <td>
                         <a href="{{url('admin/brand-edit/'.$item->id)}}" class="btn btn-primary btn-sm" title="Edit Data"><i class="fa fa-edit"></i></a>
-                    <a href="" class="btn btn-danger btn-sm" title="Delete"><i class="fa fa-trash"></i> </a>
-
+                        <form action="{{ route('brand.delete',$item->id) }}" method="POST">
+                            @csrf
+                                <button href="{{route('brand.delete',$item->id)}}" class="btn btn-danger btn-sm" id="delete" title="Delete"><i class="fa fa-trash"></i> </button>
+                        </form>
                     </td>
 
                 </tr>
@@ -123,3 +125,5 @@ active
 
 
     </div>
+
+    @endsection

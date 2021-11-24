@@ -42,12 +42,14 @@
 
     <!-- Starlight CSS -->
     <link rel="stylesheet" href="{{asset('backend/css/starlight.css')}}">
+    {{--<link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">--}}
+
 </head>
 
 <body>
 
 <!-- ########## START: LEFT PANEL ########## -->
-<div class="sl-logo"><a href=""><i class="icon ion-android-star-outline"></i> Advanc Ecomerce</a></div>
+<div class="sl-logo"><a href="{{route('admin.dashboard')}}"><i class="icon ion-android-star-outline"></i> Advanc Ecomerce</a></div>
 <!-- sl-sideleft Bar -->
 @include('admin.include.left-bar')
 <!-- ########## END: LEFT PANEL ########## -->
@@ -266,6 +268,92 @@
 <script src="{{asset('backend/lib/datatables/jquery.dataTables.js')}}"></script>
 <script src="{{asset('backend/lib/datatables-responsive/dataTables.responsive.js')}}"></script>
 <script src="{{asset('backend/lib/select2/js/select2.min.js')}}"></script>
+<script src="{{asset('backend/lib/spectrum/spectrum.js')}}"></script>
+{{--//select script--}}
+<script>
+    $(function(){
+
+        'use strict';
+
+        $('.select2').select2({
+            minimumResultsForSearch: Infinity
+        });
+
+        // Select2 by showing the search
+        $('.select2-show-search').select2({
+            minimumResultsForSearch: ''
+        });
+
+        // Select2 with tagging support
+        $('.select2-tag').select2({
+            tags: true,
+            tokenSeparators: [',', ' ']
+        });
+
+        // Datepicker
+        $('.fc-datepicker').datepicker({
+            showOtherMonths: true,
+            selectOtherMonths: true
+        });
+
+        $('#datepickerNoOfMonths').datepicker({
+            showOtherMonths: true,
+            selectOtherMonths: true,
+            numberOfMonths: 2
+        });
+
+        // Color picker
+        $('#colorpicker').spectrum({
+            color: '#17A2B8'
+        });
+
+        $('#showAlpha').spectrum({
+            color: 'rgba(23,162,184,0.5)',
+            showAlpha: true
+        });
+
+        $('#showPaletteOnly').spectrum({
+            showPaletteOnly: true,
+            showPalette:true,
+            color: '#DC3545',
+            palette: [
+                ['#1D2939', '#fff', '#0866C6','#23BF08', '#F49917'],
+                ['#DC3545', '#17A2B8', '#6610F2', '#fa1e81', '#72e7a6']
+            ]
+        });
+
+    });
+</script>
+
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(document).on('click','#delete',function (e) {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+            this.form.submit();
+            Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+            )
+        }
+    })
+
+    });
+</script>
+
+
+<script src="{{asset('backend/lib/select2/js/select2.min.js')}}"></script>
 
 <script>
     $(function(){
@@ -302,11 +390,25 @@
 <script src="{{asset('backend/lib/Flot/jquery.flot.resize.js')}}"></script>
 <script src="{{asset('backend/lib/flot-spline/jquery.flot.spline.js')}}"></script>
 
+
+
 <script src="{{asset('backend/js/starlight.js')}}"></script>
 <script src="{{asset('backend/js/ResizeSensor.js')}}"></script>
 <script src="{{asset('backend/js/dashboard.js')}}"></script>
+<script src="{{asset('backend/lib/highlightjs/highlight.pack.js')}}"></script>
+
+
+
+
 <script type="text/javascript" src="{{asset('backend')}}\lib/toastr/toastr.min.js"></script>
 <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 {!! Toastr::message() !!}
+
+
+
+{{--<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>--}}
+
+
+
 </body>
 </html>

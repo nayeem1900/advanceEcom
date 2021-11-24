@@ -4,7 +4,7 @@ use App\Http\Controllers\User\UserController;
 Use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\BrandController;
-
+use App\Http\Controllers\Admin\CategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,8 +40,26 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     Route::post('brand/store',[BrandController::class,'brandstore'])->name('brand-store');
     Route::get('/brand-edit/{brand_id}',[BrandController::class,'brandedit']);
     Route::post('brand/update',[BrandController::class,'brandupdate'])->name('brand-update');
+    Route::post('brand/delete/{id}',[BrandController::class,'delete'])->name('brand.delete');
+    //category
+    Route::get('category',[CategoryController::class,'index'])->name('category');
+    Route::post('category/store',[CategoryController::class,'categoryStore'])->name('category-store');
+    Route::get('/category-edit/{cat_id}',[CategoryController::class,'edit']);
+    Route::post('category/update',[CategoryController::class,'catUpdate'])->name('update-category');
+    Route::post('/category-delete/{cat_id}',[CategoryController::class,'delete'])->name('category.delete');
+    //subcategory
+    Route::get('sub-category',[CategoryController::class,'subIndex'])->name('sub-category');
+    Route::post('subcategory/store',[CategoryController::class,'subcategoryStore'])->name('subcategory-store');
+    Route::get('subcategory-edit/{subcat_id}',[CategoryController::class,'subedit']);
+    Route::post('subcategory/update',[CategoryController::class,'subcatUpdate'])->name('subupdate-category');
+    Route::post('subcategory-delete/{subcat_id}',[CategoryController::class,'subdelete'])->name('subcategory.delete');
 
-
+    //SUB subcategory
+    Route::get('sub-sub-category',[CategoryController::class,'subSubIndex'])->name('sub-sub-category');
+    Route::post('subcategory/store',[CategoryController::class,'subcategoryStore'])->name('subcategory-store');
+    Route::get('subcategory-edit/{subcat_id}',[CategoryController::class,'subedit']);
+    Route::post('subcategory/update',[CategoryController::class,'subcatUpdate'])->name('subupdate-category');
+    Route::post('subcategory-delete/{subcat_id}',[CategoryController::class,'subdelete'])->name('subcategory.delete');
 });
 //===========================User Route ==========================================
 Route::group(['prefix'=>'user','middleware' =>['user','auth'],'namespace'=>'User'], function(){

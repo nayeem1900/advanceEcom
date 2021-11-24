@@ -107,4 +107,14 @@ public function brandupdate(Request $request){
 
 }
 
+public  function  delete(Request $request, $id){
+
+    $brand = Brand::findOrFail($id);
+    $img = $brand->brand_image;
+    @unlink($img);
+    Brand::findOrFail($id)->delete();
+    Toastr::success('Brand Delete Success','Success');
+    return Redirect()->back();
+}
+
 }
