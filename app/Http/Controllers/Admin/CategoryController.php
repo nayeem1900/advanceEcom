@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Subcategory;
+use App\Models\SubsubCategory;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -146,10 +147,54 @@ public function subcatUpdate(Request $request){
     public function subSubIndex(){
 
         $categories=Category::orderBy('category_name_en','ASC')->get();
-
-        return view('admin.sub-sub-category.index',compact('categories'));
+        $subsubcategories=SubsubCategory::latest()->get();
+        return view('admin.sub-sub-category.index',compact('categories','subsubcategories'));
 
 
     }
+    //Get Subcategory With Ajax
+
+    public function getSubCat($cat_id){
+
+$subcat=Subcategory::where('category_id',$cat_id)->orderBy('subcategory_name_en','ASC')->get();
+
+return json_encode($subcat);
+    }
+
+    //Store
+    public function subSubcategoryStore(Request $request){
+        $request->validate([
+
+            'subsubcategory_name_en' => 'required',
+            'subsubcategory_name_bn' => 'required',
+            'category_id' => 'required',
+            'subcategory_id' => 'required',
+
+        ],[
+            'category_id.required' => 'select any category',
+            'subcategory_id.required' => 'select any category',
+
+        ]);
+
+        SubsubCategory::insert([
+            'category_id' =>$request->category_id,
+            'subcategory_id' =>$request->subcategory_id,
+            'subsubcategory_name_en'=>$request->subsubcategory_name_en,
+            'subsubcategory_name_bn'=>$request->subsubcategory_name_bn,
+            'subsubcategory_slug_en'=>strtolower(str_replace(' ','-',$request->subsubcategory_name_en)),
+            'subsubcategory_slug_bn'=>(str_replace(' ','-',$request->subsubcategory_name_bn)),
+
+            'created_at' =>Carbon::now(),
+        ]);
+        Toastr::success('Sub-Sub Category Added Success','Success');
+        return Redirect()->back();
+
+
+
+    }
+
+
+
+
 
 }
