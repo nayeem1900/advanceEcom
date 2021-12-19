@@ -192,9 +192,41 @@ return json_encode($subcat);
 
 
     }
+//edit
+public function subsubedit ($subsubcat_id){
+$subsubcat=SubsubCategory::findOrFail($subsubcat_id);
+return view('admin.sub-sub-category.edit',compact('subsubcat'));
 
 
+}
+//Update
 
+public function subsubcatUpdate(Request $request){
+    $subsubcat_id=$request->id;
+    SubsubCategory::findorFail($subsubcat_id)->Update([
+
+        'subsubcategory_name_en'=>$request->subsubcategory_name_en,
+        'subsubcategory_name_bn'=>$request->subsubcategory_name_bn,
+        'subsubcategory_slug_en'=>strtolower(str_replace(' ','-',$request->subsubcategory_name_en)),
+        'subsubcategory_slug_bn'=>(str_replace(' ','-',$request->subsubcategory_name_bn)),
+
+        'updated_at' =>Carbon::now(),
+    ]);
+    Toastr::success('Sub sub Category Update Success','Success');
+    return Redirect()->route('sub-sub-category');
+
+}
+
+//Delete
+
+public function subsubdelete($subsubcat_id){
+
+    SubsubCategory::findOrFail($subsubcat_id)->delete();
+    Toastr::success('Sub sub Category Delete Success','Success');
+    return Redirect()->back();
+
+
+}
 
 
 }

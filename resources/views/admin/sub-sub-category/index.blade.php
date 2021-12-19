@@ -39,11 +39,11 @@
                                             <td>{{ $item->subsubcategory_name_en }}</td>
                                             <td>{{ $item->subsubcategory_name_bn }}</td>
                                             <td>
-                                                <a href="{{ url('admin/subcategory-edit/'.$item->id) }}" class="btn btn-sm btn-primary" title="edit data"> <i class="fa fa-pencil"></i></a>
+                                                <a href="{{ url('admin/sub-subcategory-edit/'.$item->id) }}" class="btn btn-sm btn-primary" title="edit data"> <i class="fa fa-pencil"></i></a>
 
-                                                <form action="{{ route('subcategory.delete',$item->id) }}" method="POST">
+                                                <form action="{{ route('subsubcategory.delete',$item->id) }}" method="POST">
                                                     @csrf
-                                                    <button href="{{route('subcategory.delete',$item->id)}}" class="btn btn-danger btn-sm" id="delete" title="Delete"><i class="fa fa-trash"></i> </button>
+                                                    <button href="{{route('subsubcategory.delete',$item->id)}}" class="btn btn-danger btn-sm" id="delete" title="Delete"><i class="fa fa-trash"></i> </button>
                                                 </form>
                                             </td>
                                         </tr>
