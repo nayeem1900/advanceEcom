@@ -64,7 +64,12 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     Route::post('sub-subcategory-delete/{subsubcat_id}',[CategoryController::class,'subsubdelete'])->name('subsubcategory.delete');
     //Product Route
     Route::get('add-product',[ProductController::class,'addProduct'])->name('add-product');
-
+    Route::post('product/store',[ProductController::class,'store'])->name('product-store');
+   Route::get('sub-subcategory/ajax/{subcat_id}',[ProductController::class,'getSubSubCat']);
+    Route::get('manage-product',[ProductController::class,'manageProduct'])->name('manage-product');
+    Route::get('product-edit/{product_id}',[ProductController::class,'edit']);
+    Route::post('product/data-update',[ProductController::class,'productDataUpdate'])->name('update-product-data');
+    /*Route::post('product-delete/{product_id}',[ProductController::class,'subdelete'])->name('subcategory.delete');*/
 });
 //===========================User Route ==========================================
 Route::group(['prefix'=>'user','middleware' =>['user','auth'],'namespace'=>'User'], function(){

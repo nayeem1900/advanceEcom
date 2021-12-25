@@ -37,8 +37,10 @@
     <link href="{{asset('backend/lib/rickshaw/rickshaw.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('backend')}}\lib/toastr/toastr.css">
 
+    <link href="{{asset('backend/lib/summernote/summernote-bs4.css')}}" rel="stylesheet">
     <link href="{{asset('backend/lib/datatables/jquery.dataTables.css')}}" rel="stylesheet">
     <link href="{{asset('backend/lib/select2/css/select2.min.css')}}" rel="stylesheet">
+    <link href="{{asset('backend/lib/bootstrap-tags/bootstrap-tagsinput.css')}}" rel="stylesheet" crossorigin="anonymous">
 
     <!-- Starlight CSS -->
     <link rel="stylesheet" href="{{asset('backend/css/starlight.css')}}">
@@ -264,6 +266,7 @@
 <script src="{{asset('backend/lib/popper.js/popper.js')}}"></script>
 <script src="{{asset('backend/lib/bootstrap/bootstrap.js')}}"></script>
 <script src="{{asset('backend/lib/jquery-ui/jquery-ui.js')}}"></script>
+<script src="{{asset('backend/lib/bootstrap-tags/bootstrap-tagsinput.min.js')}}"></script>
 <script src="{{asset('backend/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js')}}"></script>
 <script src="{{asset('backend/lib/datatables/jquery.dataTables.js')}}"></script>
 <script src="{{asset('backend/lib/datatables-responsive/dataTables.responsive.js')}}"></script>
@@ -380,7 +383,30 @@
     });
 </script>
 
+<script>
+    $(function(){
+        'use strict';
 
+        // Summernote editor
+        $('#summernote').summernote({
+            height: 150,
+            tooltip: false
+        })
+        $('#summernote2').summernote({
+            height: 150,
+            tooltip: false
+        })
+        $('#summernote3').summernote({
+            height: 150,
+            tooltip: false
+        })
+        $('#summernote4').summernote({
+            height: 150,
+            tooltip: false
+        })
+    });
+</script>
+<script src="{{asset('backend/lib/summernote/summernote-bs4.min.js')}}"></script>
 <script src="{{asset('backend/lib/jquery.sparkline.bower/jquery.sparkline.min.js')}}"></script>
 <script src="{{asset('backend/lib/d3/d3.js')}}"></script>
 <script src="{{asset('backend/lib/rickshaw/rickshaw.min.js')}}"></script>
