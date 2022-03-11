@@ -38,16 +38,43 @@
                                             <td>{{ $item->product_name_en }}</td>
                                             <td>{{ $item->selling_price }}$</td>
                                             <td>{{ $item->product_qty }}</td>
-                                            <td>{{ $item->discount_price }}</td>
-                                         <td></td>
-                                            <td></td>
                                             <td>
+                                                @if($item->discount_price == null)
+                                                    <span class="badge badge-pill badge-danger">NO</span>
+                                                    @else
+                                                    @php
+                                                    $amount = $item->selling_price - $item->discount_price;
+                                                    $discount= ($amount/$item->selling_price )*100
+
+                                                    @endphp
+                                                    <span class="badge badge-pill badge-danger">{{ round($discount) }}%</span>
+                                                    @endif
+                                            </td>
+
+
+                                               {{-- <td>{{ $item->discount_price }}</td>--}}
+                                         <td>
+                                             @if($item->status==1)
+                                                <span class="badge badge-pill badge-success">Active</span>
+                                                 @else
+                                                 <span class="badge badge-pill badge-danger">Inactive</span>
+                                              @endif
+                                         </td>
+
+                                            <td>
+                                                <a href="{{ url('admin/product-edit/'.$item->id) }}" class="btn btn-sm btn-primary" title="edit data"> <i class="fa fa-eye"></i></a>
                                                 <a href="{{ url('admin/product-edit/'.$item->id) }}" class="btn btn-sm btn-primary" title="edit data"> <i class="fa fa-pencil"></i></a>
 
                                                 {{--<form action="{{ route('product.delete',$item->id) }}" method="POST">
                                                     @csrf
                                                     <button href="{{route('product.delete',$item->id)}}" class="btn btn-danger btn-sm" id="delete" title="Delete"><i class="fa fa-trash"></i> </button>
                                                 </form>--}}
+
+                                                @if($item->status==1)
+                                                    <a href="{{ url('admin/product-inactive/'.$item->id) }}" class="btn btn-sm btn-success" title="inactive"> <i class="fa fa-arrow-down"></i></a>
+                                                @else
+                                                    <a href="{{ url('admin/product-active/'.$item->id) }}" class="btn btn-sm btn-danger" title="active now data"> <i class="fa fa-arrow-up"></i></a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

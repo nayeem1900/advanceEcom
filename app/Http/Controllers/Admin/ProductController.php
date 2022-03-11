@@ -38,7 +38,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
 
-       /* dd($request->all());*/
+    /*   dd($request->all());*/
         $image = $request->file('product_thambnail');
         $name_gen=hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
         Image::make($image)->resize(917,1000)->save('upload/products/thambnail/'.$name_gen);
@@ -79,6 +79,7 @@ class ProductController extends Controller
         //////////////////// Multiple image uplod start /////////////////////////////////
 
         $images = $request->file('multi_img');
+       /* dd($request->file('multi_img'));*/
         foreach ($images as $img) {
             $make_name=hexdec(uniqid()).'.'.$img->getClientOriginalExtension();
             Image::make($img)->resize(917,1000)->save('upload/products/multi-image/'.$make_name);
@@ -157,6 +158,93 @@ $products=Product::latest()->get();
 
         Toastr::success('Product Added Success','Success');
         return Redirect()->back();
+
+    }
+
+    /////////////// product main thambnail update ////////////////////
+    public function thambnailUpdate(Request $request){
+        $pro_id = $request->product_id;
+        $oldImage = $request->old_img;
+        unlink($oldImage);
+
+        $image = $request->file('product_thambnail');
+        $name_gen=hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+        Image::make($image)->resize(917,1000)->save('upload/products/thambnail/'.$name_gen);
+        $save_url = 'upload/products/thambnail/'.$name_gen;
+
+        Product::findOrFail($pro_id)->update([
+            'product_thambnail' => $save_url,
+            'updated_at' => Carbon::now(),
+
+        ]);
+
+
+        Toastr::success('Product Update Success','Success');
+        return Redirect()->back();
+
+    }
+
+
+    /// multiple image update =============================
+
+    public function multiImgUpdate(Request $request){
+        $imgs = $request->multiImg;
+
+        foreach ($imgs as $id => $img) {
+            $imgDel = MultiImg::findOrFail($id);
+            unlink($imgDel->photo_name);
+
+            $make_name=hexdec(uniqid()).'.'.$img->getClientOriginalExtension();
+            Image::make($img)->resize(917,1000)->save('upload/products/multi-image/'.$make_name);
+            $uplodPath = 'upload/products/multi-image/'.$make_name;
+
+
+            MultiImg::where('id',$id)->update([
+                'photo_name' => $uplodPath,
+                'updated_at' => Carbon::now(),
+            ]);
+
+
+
+        }
+
+        Toastr::success('Product Update Success','Success');
+        return Redirect()->back();
+    }
+
+    ////////////////////// Multi Image Delete ////////////////
+    public function multiImageDelete($id){
+        $oldimg = MultiImg::findOrFail($id);
+        unlink($oldimg->photo_name);
+        MultiImg::findOrFail($id)->delete();
+
+        $notification=array(
+            'message'=>'Product Image Dlete Success',
+            'alert-type'=>'success'
+        );
+        return Redirect()->back()->with($notification);
+    }
+
+    /////////////// product active and inactive
+
+    public function inactive($id){
+    Product::findOrFail($id)->update(['status'=>0]);
+
+        $notification=array(
+            'message'=>'Product Inactiveted',
+            'alert-type'=>'success'
+        );
+        return Redirect()->back()->with($notification);
+
+    }
+
+    public function active($id){
+        Product::findOrFail($id)->update(['status'=>1]);
+        $notification=array(
+            'message'=>'Product Activeted',
+            'alert-type'=>'success'
+        );
+        return Redirect()->back()->with($notification);
 
     }
 

@@ -28,7 +28,7 @@ Auth::routes();
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 //===========================Admin Route ==========================================
 Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Admin'], function(){
-    Route::get('dashboard',[AdminController::class,'index'])->name('admin.dashboard');
+   Route::get('dashboard',[AdminController::class,'index'])->name('admin.dashboard');
     //profile
     Route::get('profile',[AdminController::class,'profile'])->name('admin.profile');
     Route::post('Update-admin-profile',[AdminController::class,'updateadminprofile'])->name('update.admin.profile');
@@ -64,12 +64,18 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     Route::post('sub-subcategory-delete/{subsubcat_id}',[CategoryController::class,'subsubdelete'])->name('subsubcategory.delete');
     //Product Route
     Route::get('add-product',[ProductController::class,'addProduct'])->name('add-product');
-    Route::post('product/store',[ProductController::class,'store'])->name('product-store');
+    Route::post('product/store',[ProductController::class,'store'])->name('store-product');
    Route::get('sub-subcategory/ajax/{subcat_id}',[ProductController::class,'getSubSubCat']);
     Route::get('manage-product',[ProductController::class,'manageProduct'])->name('manage-product');
     Route::get('product-edit/{product_id}',[ProductController::class,'edit']);
     Route::post('product/data-update',[ProductController::class,'productDataUpdate'])->name('update-product-data');
+    Route::post('product/multi-image/update',[ProductController::class,'multiImgUpdate'])->name('update-product-image');
+    Route::post('product/thambnail/update',[ProductController::class,'thambnailUpdate'])->name('update-product-thambnail');
     /*Route::post('product-delete/{product_id}',[ProductController::class,'subdelete'])->name('subcategory.delete');*/
+    Route::get('product/multiimg/delete/{id}',[ProductController::class,'multiImageDelete']);
+
+    Route::get('product-inactive/{id}',[ProductController::class,'inactive']);
+    Route::get('product-active/{id}',[ProductController::class,'active']);
 });
 //===========================User Route ==========================================
 Route::group(['prefix'=>'user','middleware' =>['user','auth'],'namespace'=>'User'], function(){
