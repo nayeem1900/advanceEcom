@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SliderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -76,6 +77,10 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
 
     Route::get('product-inactive/{id}',[ProductController::class,'inactive']);
     Route::get('product-active/{id}',[ProductController::class,'active']);
+
+    //Sliders
+    Route::get('sliders',[SliderController::class,'index'])->name('sliders');
+    Route::post('slider/store',[SliderController::class,'sliderstore'])->name('slider-store');
 });
 //===========================User Route ==========================================
 Route::group(['prefix'=>'user','middleware' =>['user','auth'],'namespace'=>'User'], function(){
