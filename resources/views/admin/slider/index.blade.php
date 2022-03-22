@@ -40,8 +40,21 @@
                                                 <td>
                                                     <img src="{{asset($item->image)}}"alt="" style="width: 80px;">
                                                 </td>
-                                                <td>{{$item->title}}</td>
-                                                <td>{{$item->description}}</td>
+                                                <td>
+                                                    @if($item->title_en==null)
+                                                        <span class="badge badge-pill badge-warning">No Title Found</span>
+                                                        @else
+                                                        {{$item->title_en}}
+                                                        @endif
+                                                </td>
+                                                <td>
+                                                    @if($item->description_en==null)
+                                                        <span class="badge badge-pill badge-warning">No Desc Found</span>
+                                                    @else
+                                                        {{$item->description}}
+                                                    @endif
+
+                                                </td>
                                                 <td>
                                                     @if($item->status==1)
                                                         <span class="badge badge-pill badge-success">Active</span>
@@ -52,7 +65,7 @@
 
 
                                                 <td>
-                                                    <a href="{{url('admin/brand-edit/'.$item->id)}}" class="btn btn-primary btn-sm" title="Edit Data"><i class="fa fa-edit"></i></a>
+                                                    <a href="{{url('admin/slider-edit/'.$item->id)}}" class="btn btn-primary btn-sm" title="Edit Data"><i class="fa fa-edit"></i></a>
                                                     <form action="{{ route('brand.delete',$item->id) }}" method="POST">
                                                         @csrf
                                                         <button href="{{route('brand.delete',$item->id)}}" class="btn btn-danger btn-sm" id="delete" title="Delete"><i class="fa fa-trash"></i> </button>
@@ -92,13 +105,23 @@
 
                                 <div class="form-group">
                                     <label class="form-control-label">Slider Title: <span class="tx-danger">*</span></label>
-                                    <input class="form-control" type="text" name="title" value="{{old('title')}}" placeholder="Enter Slider Title">
+                                    <input class="form-control" type="text" name="title_en" value="{{old('title_en')}}" placeholder="Enter Slider Title EN">
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">Slider Title: <span class="tx-danger">*</span></label>
+                                    <input class="form-control" type="text" name="title_bn" value="{{old('title_bn')}}" placeholder="Enter Slider Title BN">
 
                                 </div>
 
                                 <div class="form-group">
                                     <label class="form-control-label">Slider Description: <span class="tx-danger">*</span></label>
-                                    <input class="form-control" type="text" name="description" value="{{old('description')}}" placeholder="Enter Slider Description">
+                                    <input class="form-control" type="text" name="description_en" value="{{old('description_en')}}" placeholder="Enter Slider Description EN">
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">Slider Description: <span class="tx-danger">*</span></label>
+                                    <input class="form-control" type="text" name="description_bn" value="{{old('description_bn')}}" placeholder="Enter Slider Description BN">
 
                                 </div>
 

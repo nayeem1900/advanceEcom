@@ -79,8 +79,10 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     Route::get('product-active/{id}',[ProductController::class,'active']);
 
     //Sliders
-    Route::get('sliders',[SliderController::class,'index'])->name('sliders');
+    Route::get('slider',[SliderController::class,'index'])->name('sliders');
     Route::post('slider/store',[SliderController::class,'sliderstore'])->name('slider-store');
+    Route::get('/slider-edit/{id}',[SliderController::class,'slideredit']);
+    Route::post('slider/update',[SliderController::class,'sliderupdate'])->name('slider-update');
 });
 //===========================User Route ==========================================
 Route::group(['prefix'=>'user','middleware' =>['user','auth'],'namespace'=>'User'], function(){
